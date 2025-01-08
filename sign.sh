@@ -16,6 +16,8 @@ sign9() {
 
 if [ -f "work/splloader.bin" ]; then
     work/get-raw-image "work/splloader.bin"
+    sync
+    sleep 1
     RETVAL=$?
     if [ $RETVAL -eq 0 ]; then
         mv splloader.bin u-boot-spl-16k.bin
@@ -26,6 +28,8 @@ fi
 
 if [ -f "work/uboot.bin" ]; then
     work/get-raw-image "work/uboot.bin"
+    sync
+    sleep 1
     RETVAL=$?
     if [ $RETVAL -eq 0 ]; then
         mv uboot.bin u-boot.bin
@@ -36,6 +40,8 @@ fi
 
 if [ -f "work/sml.bin" ]; then
     work/get-raw-image "work/sml.bin"
+    sync
+    sleep 1
     RETVAL=$?
     if [ $RETVAL -ne 0 ]; then
         exit 1
@@ -44,12 +50,16 @@ fi
 
 if [ -f "work/tos.bin" ]; then
     work/get-raw-image "work/tos.bin"
+    sync
+    sleep 1
     RETVAL=$?
     if [ $RETVAL -ne 0 ]; then
         exit 1
     fi
 elif [ -f "work/trustos.bin" ]; then
     work/get-raw-image "work/trustos.bin"
+    sync
+    sleep 1
     RETVAL=$?
     if [ $RETVAL -eq 0 ]; then
         mv "work/trustos.bin" "work/tos.bin"
@@ -62,6 +72,8 @@ if [ ! -f "work/teecfg.bin" ]; then
     sign9
 else
     work/get-raw-image "work/teecfg.bin"
+    sync
+    sleep 1
     RETVAL=$?
     if [ $RETVAL -ne 0 ]; then
         rm work/teecfg.bin

@@ -81,7 +81,7 @@ jobs:
         cp boot/patched.img output/boot.img
         cp recovery/recovery.img output/recovery.img
         cp vbmeta/vbmeta-sign-custom.img output/
-        zip resigned.zip output
+        zip -r -v resigned.zip output
 
     - name: Upload to Release
       uses: softprops/action-gh-release@v1

@@ -53,10 +53,12 @@ jobs:
         cd vendor_sprd_proprietories-source_packimage/sign_vbmeta
         make
         chmod +x generate_sign_script_for_vbmeta
-        ./generate_sign_script_for_vbmeta ../../vbmeta/keys/vbmeta.img
+        cp generate_sign_script_for_vbmeta ../../vbmeta/keys/
+        cd ../../vbmeta/keys/
+        ./generate_sign_script_for_vbmeta vbmeta.img
+        mv sign_vbmeta.sh ../
+        mv padding.py ../
         cd ../..
-        mv vbmeta/keys/sign_vbmeta.sh vbmeta/
-        mv vbmeta/keys/padding.py vbmeta/
         cp vendor_sprd_proprietories-source_packimage/sign_image/config-unisoc/rsa4096_boot.pem vbmeta/
         cp -f vendor_sprd_proprietories-source_packimage/sign_image/config-unisoc/rsa4096_boot_pub.bin vbmeta/keys/
         cp vendor_sprd_proprietories-source_packimage/sign_image/config-unisoc/rsa4096_recovery.pem vbmeta/

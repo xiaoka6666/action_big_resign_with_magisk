@@ -80,7 +80,7 @@ jobs:
         cp work/*.bin output/
         cp boot/patched.img output/boot.img
         cp recovery/recovery.img output/recovery.img
-        cp work/vbmeta/vbmeta-sign-custom.img output/
+        cp vbmeta/vbmeta-sign-custom.img output/
         zip resigned.zip output
 
     - name: Upload to Release

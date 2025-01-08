@@ -14,8 +14,10 @@ sign9() {
     cd ..
 }
 
-if [ -f "work/splloader.bin" ]; then
-    work/get-raw-image "work/splloader.bin"
+cd work
+
+if [ -f "splloader.bin" ]; then
+    ./get-raw-image "splloader.bin"
     RETVAL=$?
     if [ $RETVAL -eq 0 ]; then
         mv splloader.bin u-boot-spl-16k.bin
@@ -24,8 +26,8 @@ if [ -f "work/splloader.bin" ]; then
     fi
 fi
 
-if [ -f "work/uboot.bin" ]; then
-    work/get-raw-image "work/uboot.bin"
+if [ -f "uboot.bin" ]; then
+    ./get-raw-image "uboot.bin"
     RETVAL=$?
     if [ $RETVAL -eq 0 ]; then
         mv uboot.bin u-boot.bin
@@ -34,40 +36,42 @@ if [ -f "work/uboot.bin" ]; then
     fi
 fi
 
-if [ -f "work/sml.bin" ]; then
-    work/get-raw-image "work/sml.bin"
+if [ -f "sml.bin" ]; then
+    ./get-raw-image "sml.bin"
     RETVAL=$?
     if [ $RETVAL -ne 0 ]; then
         exit 1
     fi
 fi
 
-if [ -f "work/tos.bin" ]; then
-    work/get-raw-image "work/tos.bin"
+if [ -f "tos.bin" ]; then
+    ./get-raw-image "tos.bin"
     RETVAL=$?
     if [ $RETVAL -ne 0 ]; then
         exit 1
     fi
-elif [ -f "work/trustos.bin" ]; then
-    work/get-raw-image "work/trustos.bin"
+elif [ -f "trustos.bin" ]; then
+    ./get-raw-image "trustos.bin"
     RETVAL=$?
     if [ $RETVAL -eq 0 ]; then
-        mv "work/trustos.bin" "work/tos.bin"
+        mv "trustos.bin" "tos.bin"
     else
         exit 1
     fi
 fi
 
-if [ ! -f "work/teecfg.bin" ]; then
+if [ ! -f "teecfg.bin" ]; then
+    cd ..
     sign9
 else
-    work/get-raw-image "work/teecfg.bin"
+    ./get-raw-image "teecfg.bin"
     RETVAL=$?
     if [ $RETVAL -ne 0 ]; then
-        rm work/teecfg.bin
+        rm teecfg.bin
+        cd ..
         sign9
     else
-        cd boot
+        cd ../boot
         ./boot_patch_10.sh
         cd ../vbmeta
         python avbtool add_hash_footer --image ../boot/patched.img --partition_name boot --partition_size 36700160 --key rsa4096_boot.pem --algorithm SHA256_RSA4096 --prop com.android.build.boot.os_version:10

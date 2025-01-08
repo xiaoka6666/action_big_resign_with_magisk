@@ -1,5 +1,3 @@
-#!/bin/bash
-
 sign9() {
     cd recovery
     ../magiskboot unpack -n recovery.img
@@ -11,9 +9,9 @@ sign9() {
     mv new-boot.img boot.img
     ../magiskboot cleanup
     ./boot_patch_9.sh
-    cd ../work/vbmeta
-    python avbtool add_hash_footer --image ../../boot/patched.img --partition_name boot --partition_size 36700160 --key rsa4096_boot.pem --algorithm SHA256_RSA4096
-    cd ../..
+    cd ../vbmeta
+    python avbtool add_hash_footer --image ../boot/patched.img --partition_name boot --partition_size 36700160 --key rsa4096_boot.pem --algorithm SHA256_RSA4096
+    cd ..
 }
 
 if [ -f "work/splloader.bin" ]; then
@@ -71,12 +69,12 @@ else
     else
         cd boot
         ./boot_patch_10.sh
-        cd ../work/vbmeta
-        python avbtool add_hash_footer --image ../../boot/patched.img --partition_name boot --partition_size 36700160 --key rsa4096_boot.pem --algorithm SHA256_RSA4096 --prop com.android.build.boot.os_version:10
-        cd ../..
+        cd ../vbmeta
+        python avbtool add_hash_footer --image ../boot/patched.img --partition_name boot --partition_size 36700160 --key rsa4096_boot.pem --algorithm SHA256_RSA4096 --prop com.android.build.boot.os_version:10
+        cd ..
     fi
 fi
 
-cd work/vbmeta
-python avbtool add_hash_footer --image ../../recovery/recovery.img --partition_name recovery --partition_size 41943040 --key rsa4096_recovery.pem --algorithm SHA256_RSA4096
-cd ../..
+cd vbmeta
+python avbtool add_hash_footer --image ../recovery/recovery.img --partition_name recovery --partition_size 41943040 --key rsa4096_recovery.pem --algorithm SHA256_RSA4096
+cd ..

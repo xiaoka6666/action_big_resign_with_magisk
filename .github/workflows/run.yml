@@ -48,6 +48,7 @@ jobs:
         mv main/sign.sh ./
         git clone https://github.com/TomKing062/vendor_sprd_proprietories-source_packimage.git
         cp -a vendor_sprd_proprietories-source_packimage/sign_image/v2/prebuilt/* work/
+        cp -a vendor_sprd_proprietories-source_packimage/sign_image/config-unisoc work/
         cp vendor_sprd_proprietories-source_packimage/sign_image/v2/sign_image_v2.sh work/
         gcc -o work/get-raw-image vendor_sprd_proprietories-source_packimage/sign_image/get-raw-image.c
         chmod +x work/*

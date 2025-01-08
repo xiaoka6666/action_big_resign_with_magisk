@@ -66,6 +66,7 @@ else
     work/get-raw-image "work/teecfg.bin"
     RETVAL=$?
     if [ $RETVAL -ne 0 ]; then
+        rm work/teecfg.bin
         sign9
     else
         cd boot

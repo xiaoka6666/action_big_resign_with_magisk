@@ -75,6 +75,7 @@ jobs:
         ./sign.sh
         cd work
         ./sign_image_v2.sh
+        cd ..
         mkdir output
         cp work/*.bin output/
         cp boot/patched.img output/boot.img

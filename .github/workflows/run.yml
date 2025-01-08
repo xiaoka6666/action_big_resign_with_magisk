@@ -36,7 +36,8 @@ jobs:
         mkdir boot
         mkdir recovery
         mkdir -p vbmeta/keys
-        tar xzvf avbtool.tgz avbtool -C vbmeta/
+        tar xzvf avbtool.tgz -C vbmeta/
+        ls vbmeta/
         mv work/boot* boot/boot.img
         mv work/recovery* recovery/recovery.img
         mv work/vbmeta* vbmeta/keys/vbmeta.img

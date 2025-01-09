@@ -37,7 +37,6 @@ jobs:
         mkdir recovery
         mkdir -p vbmeta/keys
         tar xzvf avbtool.tgz -C vbmeta/
-        ls vbmeta/
         mv work/boot* boot/boot.img
         mv work/recovery* recovery/recovery.img
         mv work/vbmeta* vbmeta/keys/vbmeta.img
@@ -78,10 +77,10 @@ jobs:
         ./sign_image_v2.sh
         cd ..
         mkdir output
-        cp work/*.bin output/
+        cp work/*-sign.bin output/
         cp boot/patched.img output/boot.img
         cp recovery/recovery.img output/recovery.img
-        cp vbmeta/vbmeta-sign-custom.img output/
+        cp vbmeta/vbmeta-sign-custom.img output/vbmeta.img
         zip -r -v resigned.zip output
 
     - name: Upload to Release

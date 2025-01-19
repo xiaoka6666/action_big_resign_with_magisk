@@ -44,6 +44,7 @@ jobs:
         busybox unzip -oq magisk.apk -d boot/zzz
         mv main/boot_patch_9.sh boot/
         mv main/boot_patch_10.sh boot/
+        mv main/sign_avb.sh vbmeta/
         mv main/sign.sh ./
         git clone https://github.com/TomKing062/vendor_sprd_proprietories-source_packimage.git
         cp -a vendor_sprd_proprietories-source_packimage/sign_image/v2/prebuilt/* work/

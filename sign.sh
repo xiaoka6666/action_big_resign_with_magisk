@@ -5,12 +5,13 @@ sign9() {
     ../magiskboot unpack -n boot.img
     cp -f ../recovery/ramdisk.cpio ./
     ../magiskboot repack -n boot.img
-    rm boot.img
+    mv boot.img boot_bkp.img
     mv new-boot.img boot.img
     ../magiskboot cleanup
     ./boot_patch_9.sh
     cd ../vbmeta
-    python avbtool add_hash_footer --image ../boot/patched.img --partition_name boot --partition_size 36700160 --key rsa4096_boot.pem --algorithm SHA256_RSA4096
+    #python avbtool add_hash_footer --image ../boot/patched.img --partition_name boot --partition_size 36700160 --key rsa4096_boot.pem --algorithm SHA256_RSA4096
+    ./sign_avb.sh boot ../boot/boot_bkp.img ../boot/patched.img
     cd ..
 }
 
@@ -74,11 +75,13 @@ else
         cd ../boot
         ./boot_patch_10.sh
         cd ../vbmeta
-        python avbtool add_hash_footer --image ../boot/patched.img --partition_name boot --partition_size 36700160 --key rsa4096_boot.pem --algorithm SHA256_RSA4096 --prop com.android.build.boot.os_version:10
+        #python avbtool add_hash_footer --image ../boot/patched.img --partition_name boot --partition_size 36700160 --key rsa4096_boot.pem --algorithm SHA256_RSA4096 --prop com.android.build.boot.os_version:10
+        ./sign_avb.sh boot ../boot/boot.img ../boot/patched.img
         cd ..
     fi
 fi
 
 cd vbmeta
-python avbtool add_hash_footer --image ../recovery/recovery.img --partition_name recovery --partition_size 41943040 --key rsa4096_recovery.pem --algorithm SHA256_RSA4096
+#python avbtool add_hash_footer --image ../recovery/recovery.img --partition_name recovery --partition_size 41943040 --key rsa4096_recovery.pem --algorithm SHA256_RSA4096
+./sign_avb.sh recovery ../recovery/recovery.img ../recovery/recovery.img
 cd ..

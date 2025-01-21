@@ -31,11 +31,7 @@ cp work/config-unisoc/rsa4096_vbmeta.pem vbmeta/
 chmod +x vbmeta/*
 sudo rm -rf /usr/bin/python
 sudo ln -s /usr/bin/python2 /usr/bin/python
-cd vbmeta
-./sign_vbmeta.sh
-python padding.py
-cp vbmeta-sign-custom.img ../output/vbmeta.img
-cd ../work
+cd work
 
 if [ -f "splloader.bin" ]; then
     ./get-raw-image "splloader.bin"
@@ -114,7 +110,12 @@ if [ $RETVAL -eq 0 ]; then
     cd ..
 fi
 
-cd work
+cd vbmeta
+./sign_vbmeta.sh
+python padding.py
+cp vbmeta-sign-custom.img ../output/vbmeta.img
+
+cd ../work
 ./sign_image_v2.sh
 cp *-sign.bin ../output/
 cd ..

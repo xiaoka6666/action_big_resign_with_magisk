@@ -6,7 +6,7 @@ on:
       ZIP_URL:    
         description: 'URL of (splloader)+uboot+sml+trustos+(teecfg)+vbmeta+boot+(recovery) (all end with .bin)'
         required: true
-        default: ''
+        default: 'https://github.com/xiaoka6666/action_big_resign_with_magisk/releases/download/12677039710/boot.zip'
 
 jobs:
   build:
